@@ -26,7 +26,7 @@ public class Propriedade {
     private String prop_district;
 
     @Valid
-    @OneToMany(mappedBy = "propriedade")
+    @OneToMany(mappedBy = "propriedade", cascade = CascadeType.ALL)
     private List<Comodo> comodos = new ArrayList<>();
 
     public Integer getId() {

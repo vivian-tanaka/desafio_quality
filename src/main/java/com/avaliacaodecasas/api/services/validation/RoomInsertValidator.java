@@ -14,7 +14,7 @@ public class RoomInsertValidator implements ConstraintValidator<RoomInsert, Como
 
     @Override
     public boolean isValid(Comodo comodo, ConstraintValidatorContext constraintValidatorContext) {
-        if(!Character.isUpperCase(comodo.getRoom_name().charAt(0))){
+        if(comodo.getRoom_name().strip() != "" && !Character.isUpperCase(comodo.getRoom_name().charAt(0))){
             FieldMessage error = new FieldMessage("room_name","O nome do cômodo deve começar com uma letra maiúscula.");
 
             constraintValidatorContext.disableDefaultConstraintViolation();

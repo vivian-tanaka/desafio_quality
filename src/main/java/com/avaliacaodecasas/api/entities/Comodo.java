@@ -1,12 +1,10 @@
 package com.avaliacaodecasas.api.entities;
 
 import com.avaliacaodecasas.api.services.validation.RoomInsert;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @RoomInsert
@@ -20,15 +18,15 @@ public class Comodo {
     @Size(max = 30, message = "O comprimento do nome do cômodo não pode exceder 30 caracteres.")
     private String room_name;
 
-    @NotBlank(message = "O comprimento do cômodo não pode estar vazio.")
+    @NotNull(message = "O comprimento do cômodo não pode estar vazio.")
     @Max(value = 33, message = "O comprimento do cômodo não pode exceder 33 metros.")
     private Double room_length;
 
-    @NotBlank(message = "A largura do cômodo não pode estar vazia.")
+    @NotNull(message = "A largura do cômodo não pode estar vazia.")
     @Max(value = 25, message = "A largura do cômodo não pode exceder 25 metros.")
     private Double room_width;
 
-    @NotNull
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "propriedade_id")
     private Propriedade propriedade;

@@ -15,7 +15,7 @@ public class PropertyInsertValidator implements ConstraintValidator<PropertyInse
 
     @Override
     public boolean isValid(Propriedade propriedade, ConstraintValidatorContext constraintValidatorContext) {
-        if(!Character.isUpperCase(propriedade.getProp_name().charAt(0))){
+        if(propriedade.getProp_name().strip() != "" && !Character.isUpperCase(propriedade.getProp_name().charAt(0))){
             FieldMessage error = new FieldMessage("prop_name","O nome da propriedade deve começar com uma letra maiúscula.");
 
             constraintValidatorContext.disableDefaultConstraintViolation();

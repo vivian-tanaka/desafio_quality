@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/propriedades")
@@ -18,16 +19,19 @@ public class PropriedadeController {
         this.propriedadeService = propriedadeService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<PropriedadeDTO>> getAllProperties(){
+        return ResponseEntity.ok().body(propriedadeService.findAllProperties());
+    }
+
     @GetMapping("/{propriedadeId}")
     public ResponseEntity<PropriedadeDTO> getPropertyDetails(@PathVariable Integer propriedadeId){
-        PropriedadeDTO propriedadeDTO = new PropriedadeDTO(propriedadeService.findById(propriedadeId));
-
-        return ResponseEntity.ok().body(propriedadeDTO);
+        return ResponseEntity.ok().body(propriedadeService.getPropertyDetails(propriedadeId));
     }
 
     @PostMapping
     public ResponseEntity<Void> addNewProperty(@Valid @RequestBody Propriedade propriedade){
-
+        propriedadeService.savePropriedade(propriedade);
         return ResponseEntity.status(201).build();
     }
 }

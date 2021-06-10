@@ -22,7 +22,10 @@ public class PropriedadeDTO {
     public PropriedadeDTO(){}
 
     public PropriedadeDTO(Propriedade propriedade){
-
+        this.id = propriedade.getId();
+        this.prop_name = propriedade.getProp_name();
+        this.prop_district = propriedade.getProp_district();
+        this.comodos.addAll(propriedade.getComodos());
     }
 
     public Integer getId() {
