@@ -1,41 +1,28 @@
 package com.avaliacaodecasas.api.entities;
 
-import com.avaliacaodecasas.api.services.validation.PropertyInsert;
-
-import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@PropertyInsert
+
 public class Propriedade {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @NotBlank(message = "O nome da propriedade não pode estar vazio.")
+    @NotEmpty(message = "O nome da propriedade não pode estar vazio.")
     @Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres.")
+    @Pattern(regexp = "^([A-Z]+)([a-z]|[A-Z]|[0-9]|\\s)+", message = "Nome da propriedade deve ser iniciada por maiuscula")
     private String prop_name;
 
-    @NotBlank(message = "O bairro não pode estar vazio.")
+    @NotNull
+    @NotEmpty(message = "O bairro não pode estar vazio.")
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
     private String prop_district;
 
     @Valid
-    @OneToMany(mappedBy = "propriedade", cascade = CascadeType.ALL)
     private List<Comodo> comodos = new ArrayList<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public List<Comodo> getComodos() {
         return comodos;

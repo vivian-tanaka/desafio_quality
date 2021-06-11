@@ -1,21 +1,12 @@
 package com.avaliacaodecasas.api.entities;
 
-import com.avaliacaodecasas.api.services.validation.RoomInsert;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import javax.validation.constraints.*;
 
-@Entity
-@RoomInsert
 public class Comodo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @NotBlank(message = "O nome do cômodo não pode estar vazio.")
+    @NotEmpty(message = "O nome do cômodo não pode estar vazio.")
     @Size(max = 30, message = "O comprimento do nome do cômodo não pode exceder 30 caracteres.")
+    @Pattern(regexp = "^([A-Z]+)([a-z]|[A-Z]|[0-9]|\\s)+", message = "Nome do comodo deve ser iniciada por maiuscula")
     private String room_name;
 
     @NotNull(message = "O comprimento do cômodo não pode estar vazio.")
@@ -26,25 +17,12 @@ public class Comodo {
     @Max(value = 25, message = "A largura do cômodo não pode exceder 25 metros.")
     private Double room_width;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "propriedade_id")
-    private Propriedade propriedade;
+    public Comodo(){}
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Propriedade getPropriedade() {
-        return propriedade;
-    }
-
-    public void setPropriedade(Propriedade propriedade) {
-        this.propriedade = propriedade;
+    public Comodo(String room_name, Double room_length, Double room_width) {
+        this.room_name = room_name;
+        this.room_length = room_length;
+        this.room_width = room_width;
     }
 
     public String getRoom_name() {
