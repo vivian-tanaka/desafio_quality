@@ -42,7 +42,6 @@ public class PropriedadeServiceTest {
 
     @Test
     void shouldReturnPropertyTotalValue(){
-        propriedade.getComodos().stream().map(comodo -> comodo.getRoom_name()).forEach(System.out::println);
         Double valor = propriedadeService.calculate(propriedade).getValorDaPropriedade();
 
         Assertions.assertEquals(134.00*200.55,valor);
