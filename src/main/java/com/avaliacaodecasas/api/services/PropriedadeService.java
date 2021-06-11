@@ -29,21 +29,21 @@ public class PropriedadeService {
         PropriedadeDTO propriedadeDTO = new PropriedadeDTO(propriedade);
         Double totalValue = getTotalValue(propriedadeDTO.getAreaTotal(),propriedadeDTO.getProp_district());
 
-        DecimalFormat df =  new DecimalFormat("#.00",
-                new DecimalFormatSymbols(Locale.ENGLISH));
-        propriedadeDTO.setValorDaPropriedade(Double.valueOf(df.format(totalValue)));
+        propriedadeDTO.setValorDaPropriedade(totalValue);
 
        return propriedadeDTO;
     }
 
     private Double getTotalValue(Double area, String district){
+        DecimalFormat df =  new DecimalFormat("#.00",
+                new DecimalFormatSymbols(Locale.ENGLISH));
+
         if(bairros.containsKey(district)){
             Double districtValue = bairros.get(district);
-            return districtValue * area;
+            return Double.valueOf(df.format(districtValue * area));
         }else{
             throw new ObjectNotFoundException("Bairro "+district+" não cadastrado");
         }
-
     }
 
 
