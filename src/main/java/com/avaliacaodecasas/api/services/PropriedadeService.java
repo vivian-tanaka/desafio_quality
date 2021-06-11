@@ -5,7 +5,11 @@ import com.avaliacaodecasas.api.entities.dto.PropriedadeDTO;
 import com.avaliacaodecasas.api.services.exceptions.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 
 @Service
 public class PropriedadeService {
@@ -14,18 +18,21 @@ public class PropriedadeService {
 
     public PropriedadeService(){
 
-        bairros.put("Saude",200.54);
+        bairros.put("Saude",200.55);
         bairros.put("Paraiso",400.9);
         bairros.put("Santana",300.53);
         bairros.put("Liberdade",600.0);
         bairros.put("Morumbi",500.55);
     }
 
-    public PropriedadeDTO savePropriedade(Propriedade propriedade){
+    public PropriedadeDTO calculate(Propriedade propriedade){
 
         PropriedadeDTO propriedadeDTO = new PropriedadeDTO(propriedade);
         Double totalValue = getTotalValue(propriedadeDTO.getAreaTotal(),propriedadeDTO.getProp_district());
-        propriedadeDTO.setValorDaPropriedade(totalValue);
+
+        DecimalFormat df =  new DecimalFormat("#.00",
+                new DecimalFormatSymbols(Locale.ENGLISH));
+        propriedadeDTO.setValorDaPropriedade(Double.valueOf(df.format(totalValue)));
 
        return propriedadeDTO;
     }

@@ -23,7 +23,7 @@ public class PropriedadeController {
 
     @PostMapping
     public ResponseEntity<PropriedadeDTO> addNewProperty(@Valid @RequestBody Propriedade propriedade){
-        PropriedadeDTO propriedadeDTO = propriedadeService.savePropriedade(propriedade);
+        PropriedadeDTO propriedadeDTO = propriedadeService.calculate(propriedade);
         return ResponseEntity.status(201).body(propriedadeDTO);
     }
 }

@@ -15,6 +15,7 @@ public class PropriedadeDTO {
 
     private List<Comodo> comodos = new ArrayList<>();
 
+
     private Double valorDaPropriedade;
 
     public PropriedadeDTO(){}
