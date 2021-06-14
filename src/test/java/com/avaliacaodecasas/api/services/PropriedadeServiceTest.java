@@ -4,7 +4,6 @@ import com.avaliacaodecasas.api.entities.Comodo;
 import com.avaliacaodecasas.api.entities.Propriedade;
 import com.avaliacaodecasas.api.entities.dto.PropriedadeDTO;
 import com.avaliacaodecasas.api.services.exceptions.ObjectNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class PropriedadeServiceTest {
@@ -44,7 +46,7 @@ public class PropriedadeServiceTest {
     void shouldReturnPropertyTotalValue(){
         Double valor = propriedadeService.calculate(propriedade).getValorDaPropriedade();
 
-        Assertions.assertEquals(134.00*200.55,valor);
+        assertEquals(134.00*200.55,valor);
     }
 
     @Test
@@ -52,31 +54,31 @@ public class PropriedadeServiceTest {
         propriedade.setProp_district("Paraiso");
         PropriedadeDTO propriedadeDTO = propriedadeService.calculate(propriedade);
 
-        Assertions.assertEquals(PropriedadeDTO.class,propriedadeDTO.getClass());
+        assertEquals(PropriedadeDTO.class,propriedadeDTO.getClass());
     }
 
     @Test
     void shouldThrowObjectNotFoundExceptionWhenUsingUnregisteredDistrict(){
         propriedade.setProp_district("Bairro Desconhecido");
 
-        Assertions.assertThrows(ObjectNotFoundException.class,() -> propriedadeService.calculate(propriedade));
+        assertThrows(ObjectNotFoundException.class,() -> propriedadeService.calculate(propriedade));
     }
 
     @Test
     void shouldReturnBiggestRoom(){
         PropriedadeDTO propriedadeDTO = propriedadeService.calculate(propriedade);
 
-        Assertions.assertEquals("Suite1",propriedadeDTO.getMaiorComodo().getRoom_name());
+        assertEquals("Suite1",propriedadeDTO.getMaiorComodo().getRoom_name());
     }
 
     @Test
     void shouldCalculateTotalArea(){
         PropriedadeDTO propriedadeDTO = propriedadeService.calculate(propriedade);
 
-        Assertions.assertEquals(100.00,propriedadeDTO.getComodos().get(0).getAreaDoComodo());
-        Assertions.assertEquals(25.00,propriedadeDTO.getComodos().get(1).getAreaDoComodo());
-        Assertions.assertEquals(9.00,propriedadeDTO.getComodos().get(2).getAreaDoComodo());
-        Assertions.assertEquals(134.00,propriedadeDTO.getAreaTotal());
+        assertEquals(100.00,propriedadeDTO.getComodos().get(0).getAreaDoComodo());
+        assertEquals(25.00,propriedadeDTO.getComodos().get(1).getAreaDoComodo());
+        assertEquals(9.00,propriedadeDTO.getComodos().get(2).getAreaDoComodo());
+        assertEquals(134.00,propriedadeDTO.getAreaTotal());
     }
 
 }

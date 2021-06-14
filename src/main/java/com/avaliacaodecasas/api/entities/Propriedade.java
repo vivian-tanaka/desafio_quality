@@ -1,5 +1,7 @@
 package com.avaliacaodecasas.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,7 @@ public class Propriedade {
     private String prop_name;
 
     @NotNull
+    @JsonProperty(value = "prop_district")
     @NotEmpty(message = "O bairro não pode estar vazio.")
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
     private String prop_district;
